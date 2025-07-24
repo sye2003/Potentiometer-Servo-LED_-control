@@ -32,30 +32,3 @@ As you rotate the potentiometer:
 3. The LED brightness is mapped using PWM (0–255).
 4. As you rotate the knob, both outputs respond in real time.
 
-## 🧾 Code
-
-```cpp
-#include <Servo.h>
-
-Servo myServo;
-
-const int potPin = A0;
-const int ledPin = 6;
-const int servoPin = 9;
-
-void setup() {
-  myServo.attach(servoPin);
-  pinMode(ledPin, OUTPUT);
-}
-
-void loop() {
-  int potValue = analogRead(potPin);
-  
-  int servoAngle = map(potValue, 0, 1023, 0, 180);
-  int ledBrightness = map(potValue, 0, 1023, 0, 255);
-
-  myServo.write(servoAngle);
-  analogWrite(ledPin, ledBrightness);
-
-  delay(10);
-}
