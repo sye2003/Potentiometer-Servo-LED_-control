@@ -1,22 +1,24 @@
-#include<Servo.h>
-int pot=A0;
-int value;
-int angle;
-Servo myservo;
-void setup() {
-  pinMode(A0,INPUT);
-  myservo.attach(10);
-  Serial.begin(9600);
-  // put your setup code here, to run once:
+#include <Servo.h>
 
+Servo myServo;
+
+const int potPin = A0;
+const int ledPin = 6;
+const int servoPin = 9;
+
+void setup() {
+  myServo.attach(servoPin);
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
-  value=analogRead(A0);
-  Serial.println(value);
-  angle=map(value,0,1023,0,180);
-  myservo.write(angle);
+  int potValue = analogRead(potPin);
+  
+  int servoAngle = map(potValue, 0, 1023, 0, 180);
+  int ledBrightness = map(potValue, 0, 1023, 0, 255);
 
-  // put your main code here, to run repeatedly:
+  myServo.write(servoAngle);
+  analogWrite(ledPin, ledBrightness);
 
+  delay(10);
 }
